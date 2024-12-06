@@ -16,7 +16,7 @@ import re
 from unidecode import unidecode
 from phonemizer import phonemize
 from phonemizer.backend import EspeakBackend
-backend = EspeakBackend("en-us", preserve_punctuation=True, with_stress=True)
+backend = EspeakBackend("bn", preserve_punctuation=True, with_stress=True)
 
 
 # Regular expression matching whitespace:
@@ -26,24 +26,38 @@ _whitespace_re = re.compile(r"\s+")
 _abbreviations = [
     (re.compile("\\b%s\\." % x[0], re.IGNORECASE), x[1])
     for x in [
-        ("mrs", "misess"),
-        ("mr", "mister"),
-        ("dr", "doctor"),
-        ("st", "saint"),
-        ("co", "company"),
-        ("jr", "junior"),
-        ("maj", "major"),
-        ("gen", "general"),
-        ("drs", "doctors"),
-        ("rev", "reverend"),
-        ("lt", "lieutenant"),
-        ("hon", "honorable"),
-        ("sgt", "sergeant"),
-        ("capt", "captain"),
-        ("esq", "esquire"),
-        ("ltd", "limited"),
-        ("col", "colonel"),
-        ("ft", "fort"),
+      ("ডঃ", "ডক্টর"),
+    ("ড.", "ডক্টর"),
+    ("ডাঃ", "ডাক্তার"),
+     ("ডা.", "ডাক্তার"),
+     ("ইঃ", "ইঞ্জিনিয়ার"),
+     ("মোঃ", "মোহাম্মদ"),
+     ("মুহাঃ", "মুহাম্মদ"),
+     ("মোহাঃ", "মোহাম্মদ"),
+     ("মিঃ", "মিস্টার"),
+     ("মিঃসঃ", "মিসেস"),
+      ("মো.", "মোহাম্মদ"),
+     ("মুহা.", "মুহাম্মদ"),
+     ("মোহা.", "মোহাম্মদ"),
+     ("মি.", "মিস্টার"),
+        # ("mrs", "misess"),
+        # ("mr", "mister"),
+        # ("dr", "doctor"),
+        # ("st", "saint"),
+        # ("co", "company"),
+        # ("jr", "junior"),
+        # ("maj", "major"),
+        # ("gen", "general"),
+        # ("drs", "doctors"),
+        # ("rev", "reverend"),
+        # ("lt", "lieutenant"),
+        # ("hon", "honorable"),
+        # ("sgt", "sergeant"),
+        # ("capt", "captain"),
+        # ("esq", "esquire"),
+        # ("ltd", "limited"),
+        # ("col", "colonel"),
+        # ("ft", "fort"),
     ]
 ]
 
@@ -97,12 +111,12 @@ def english_cleaners(text):
 
 def english_cleaners2(text):
     """Pipeline for English text, including abbreviation expansion. + punctuation + stress"""
-    text = convert_to_ascii(text)
-    text = lowercase(text)
+    # text = convert_to_ascii(text)
+    # text = lowercase(text)
     text = expand_abbreviations(text)
     phonemes = phonemize(
         text,
-        language="en-us",
+        language="bn",
         backend="espeak",
         strip=True,
         preserve_punctuation=True,
